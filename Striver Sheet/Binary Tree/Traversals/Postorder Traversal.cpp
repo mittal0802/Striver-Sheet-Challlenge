@@ -9,16 +9,20 @@
  *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
  * };
  */
-
-// TC: O(N) SC: O(N) worst case
 class Solution {
 public:
-    int maxDepth(TreeNode* root) {
-        if(root == NULL)
-            return 0;
-        return 1 + max(maxDepth(root->left), maxDepth(root->right));
+    void helper(TreeNode* root, vector<int> &ans)
+    {
+        if(root!=NULL)
+        {
+            helper(root->left, ans);
+            helper(root->right, ans);
+            ans.push_back(root->val);
+        }
+    }
+    vector<int> postorderTraversal(TreeNode* root) {
+         vector<int> ans;
+        helper(root, ans);
+        return ans;
     }
 };
-
-// we can also do using level order
-
